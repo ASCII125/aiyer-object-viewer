@@ -1,0 +1,36 @@
+name: Factual Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  factual-tests-groq:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[groq]"
+          pip install python-dotenv
+
+      - name: Create .env file
+        run: |
+          echo "TEST_GROQ_TOKEN=${{ secrets.TEST_GROQ_TOKEN }}" >> .env
+
+      - name: Run Groq factual tests
+        run: |
+          python -m tests.factual.groq.test_chat
+          python -m tests.factual.groq.test_lite
+          python -m tests.factual.groq.test_zero
+          python -m tests.factual.groq.test_medium

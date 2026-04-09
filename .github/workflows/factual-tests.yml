@@ -1,0 +1,74 @@
+name: Factual Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  factual-tests-groq:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[groq]"
+          pip install python-dotenv pillow
+
+      - name: Create .env file
+        run: |
+          echo "TEST_GROQ_TOKEN=${{ secrets.TEST_GROQ_TOKEN }}" >> .env
+
+      - name: Download test image
+        run: |
+          curl -sL "${{ secrets.TEST_IMAGE_URL }}" -o /tmp/test_image.jpg
+
+      - name: Run Groq factual tests
+        run: |
+          python -m tests.factual.groq.test_chat
+          python -m tests.factual.groq.test_lite /tmp/test_image.jpg
+          python -m tests.factual.groq.test_zero /tmp/test_image.jpg
+          python -m tests.factual.groq.test_medium /tmp/test_image.jpg
+
+  factual-tests-ollama:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -e ".[ollama]"
+          pip install python-dotenv pillow
+
+      - name: Create .env file
+        run: |
+          echo "TEST_OLLAMA_URL=${{ secrets.TEST_OLLAMA_URL }}" >> .env
+          echo "TEST_OLLAMA_PORT=${{ secrets.TEST_OLLAMA_PORT }}" >> .env
+          echo "TEST_OLLAMA_HTTPS=${{ secrets.TEST_OLLAMA_HTTPS }}" >> .env
+          echo "TEST_OLLAMA_API_KEY=${{ secrets.TEST_OLLAMA_API_KEY }}" >> .env
+
+      - name: Download test image
+        run: |
+          curl -sL "${{ secrets.TEST_IMAGE_URL }}" -o /tmp/test_image.jpg
+
+      - name: Run Ollama factual tests
+        run: |
+          python -m tests.factual.ollama.test_lite /tmp/test_image.jpg
+          python -m tests.factual.ollama.test_zero /tmp/test_image.jpg
+          python -m tests.factual.ollama.test_medium /tmp/test_image.jpg
+          python -m tests.factual.ollama.test_context_chat /tmp/test_image.jpg

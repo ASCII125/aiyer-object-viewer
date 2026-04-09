@@ -23,6 +23,8 @@ async def main():
         model=setup.test_ollama_vision_model,
         ollama_ip=setup.test_ollama_url,
         ollama_port=setup.test_ollama_port,
+        ollama_api_key=setup.test_ollama_api_key,
+        https=setup.test_ollama_https,
     )
 
     aiyer = AiyerMedium(model=model)

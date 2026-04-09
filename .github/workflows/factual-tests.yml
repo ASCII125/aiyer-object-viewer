@@ -28,9 +28,13 @@ jobs:
         run: |
           echo "TEST_GROQ_TOKEN=${{ secrets.TEST_GROQ_TOKEN }}" >> .env
 
+      - name: Download test image
+        run: |
+          curl -sL "${{ secrets.TEST_IMAGE_URL }}" -o /tmp/test_image.jpg
+
       - name: Run Groq factual tests
         run: |
           python -m tests.factual.groq.test_chat
-          python -m tests.factual.groq.test_lite
-          python -m tests.factual.groq.test_zero
-          python -m tests.factual.groq.test_medium
+          python -m tests.factual.groq.test_lite /tmp/test_image.jpg
+          python -m tests.factual.groq.test_zero /tmp/test_image.jpg
+          python -m tests.factual.groq.test_medium /tmp/test_image.jpg

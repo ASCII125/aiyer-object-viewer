@@ -1,0 +1,23 @@
+[project]
+name = "aiyer"
+version = "0.1.0-alpha"
+description = "Structured image analysis using LLMs. Define a Pydantic model, send an image, get structured data."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+    "asyncer>=0.0.17",
+    "pydantic>=2.12.5",
+]
+
+[project.optional-dependencies]
+ollama = [
+    "ollama>=0.6.1",
+]
+groq = [
+    "groq>=1.1.2",
+]
+all = [
+    "ollama>=0.6.1",
+    "groq>=1.1.2",
+]

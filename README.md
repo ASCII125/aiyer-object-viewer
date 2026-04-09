@@ -6,6 +6,76 @@ Aiyer is a lightweight Python library for structured image analysis using LLMs. 
 
 It works with any LLM provider through adapters (Ollama, Groq) and supports multiple analysis strategies with different speed/quality trade-offs.
 
+## Overview
+
+This library is designed to support systems that integrate image analysis capabilities, such as inventory management, people tracking, kitchen monitoring, access control (turnstiles), and parking management.
+
+As illustrated in the example below, it can be used to analyze and estimate inventory quantities from visual data.
+
+## 📦 Stock View
+
+<table>
+<tr>
+<td width="40%">
+
+<img src="https://github.com/user-attachments/assets/42a6bb59-6976-4f17-9a5f-4635b87f2643" width="100%"/>
+
+</td>
+<td width="60%">
+
+### Stock Analysis: example1.jpg
+
+The stock situation appears to be nearly depleted with many shelves empty or low on stock.
+
+**Overall stock:** 🔴 Critical  
+
+#### Products
+- ● Cookies: low  
+- ● Canned Goods: empty  
+- ● Toiletries: empty  
+- ● Baking Goods: empty  
+- ● Snacks: low  
+
+#### Restock Actions
+1. Immediate restocking of all shelves  
+2. Prioritize Canned Goods and Toiletries  
+3. Order emergency shipment of essential items  
+
+</td>
+</tr>
+</table>
+
+---
+
+<table>
+<tr>
+<td width="40%">
+
+<img src="https://github.com/user-attachments/assets/03ca903d-617a-46d5-968e-fdfb1a7f3e00" width="100%"/>
+
+</td>
+<td width="60%">
+
+### Stock Analysis: example2.jpg
+
+The image shows a well-stocked shelf with various snacks and biscuits.
+
+**Overall stock:** 🟢 Adequate  
+
+#### Products
+- ○ Biscuits: full  
+- ○ Chocolates: full  
+- ○ Candies: medium  
+
+#### Restock Actions
+1. No immediate restocking needed  
+2. Monitor candy stock levels  
+
+</td>
+</tr>
+</table>
+
+
 ## Installation
 
 ```bash

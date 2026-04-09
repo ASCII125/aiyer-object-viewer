@@ -1,14 +1,34 @@
 [project]
 name = "aiyer"
-version = "0.1.0-alpha"
+version = "0.1.0a1"
 description = "Structured image analysis using LLMs. Define a Pydantic model, send an image, get structured data."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
+authors = [
+    { name = "ASCII125" },
+]
+keywords = ["llm", "vision", "image-analysis", "pydantic", "ollama", "groq"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
 dependencies = [
     "asyncer>=0.0.17",
     "pydantic>=2.12.5",
 ]
+
+[project.urls]
+Homepage = "https://github.com/ASCII125/aiyer-object-viewer"
+Repository = "https://github.com/ASCII125/aiyer-object-viewer"
+Issues = "https://github.com/ASCII125/aiyer-object-viewer/issues"
 
 [project.optional-dependencies]
 ollama = [
@@ -20,4 +40,17 @@ groq = [
 all = [
     "ollama>=0.6.1",
     "groq>=1.1.2",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["aiyer"]
+
+[dependency-groups]
+dev = [
+    "build>=1.4.2",
+    "twine>=6.2.0",
 ]

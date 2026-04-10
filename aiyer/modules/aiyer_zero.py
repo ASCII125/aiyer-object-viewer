@@ -52,7 +52,14 @@ class AiyerZero(Aiyer):
         t0 = time.perf_counter()
         response = await self.model.achat(
             [
-                Message(role="system", content="Respond with JSON only."),
+                Message(
+                    role="system",
+                    content=(
+                        "Respond with JSON only. Match each field's JSON type exactly "
+                        "(integers as plain numbers, not strings). The 'Field descriptions' "
+                        "section is context only — never copy its text into your response."
+                    ),
+                ),
                 Message(
                     role="user",
                     content=f"Analyze this image. Fill JSON with real data:\n{schema_example}",

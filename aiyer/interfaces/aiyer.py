@@ -63,7 +63,11 @@ class ContextChat(Generic[T]):
                 content=(
                     "You are a vision analyst. Respond with a single JSON object "
                     "filled with real data from the image. "
-                    "Never return a schema definition, only actual values."
+                    "Never return a schema definition, only actual values. "
+                    "Match each field's JSON type exactly: integers must be plain "
+                    "numbers (e.g. 3), not strings. The 'Field descriptions' section "
+                    "is provided only as semantic context — never copy its text into "
+                    "your response."
                 ),
             ),
             Message(

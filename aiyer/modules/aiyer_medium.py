@@ -54,7 +54,11 @@ class AiyerMedium(Aiyer):
                     content=(
                         "You are a vision analyst. Respond with a single JSON object "
                         "filled with real data from the image. "
-                        "Never return a schema definition, only actual values."
+                        "Never return a schema definition, only actual values. "
+                        "Match each field's JSON type exactly: integers must be plain "
+                        "numbers (e.g. 3), not strings. The 'Field descriptions' section "
+                        "is provided only as semantic context — never copy its text into "
+                        "your response."
                     ),
                 ),
                 Message(
@@ -89,7 +93,11 @@ class AiyerMedium(Aiyer):
                         "You are a senior vision analyst doing a thorough second review. "
                         "Your job is to find everything your first pass missed and add richer detail. "
                         "Every description must be more specific than the original. "
-                        "Respond with a single JSON object. Never return a schema definition."
+                        "Respond with a single JSON object. Never return a schema definition. "
+                        "Match each field's JSON type exactly: integers must be plain "
+                        "numbers (e.g. 3), not strings. The 'Field descriptions' section "
+                        "is provided only as semantic context — never copy its text into "
+                        "your response."
                     ),
                 ),
                 Message(

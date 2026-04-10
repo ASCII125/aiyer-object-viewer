@@ -1,6 +1,6 @@
 [project]
 name = "aiyer"
-version = "0.1.0a4"
+version = "0.1.0a5"
 description = "Structured image analysis using LLMs. Define a Pydantic model, send an image, get structured data."
 readme = "README.md"
 requires-python = ">=3.11"

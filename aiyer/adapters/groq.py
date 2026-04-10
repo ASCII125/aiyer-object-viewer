@@ -3,7 +3,7 @@ Groq LLM adapter
 """
 
 import re
-from typing import List, Optional
+from typing import List
 
 from ..providers import get_groq
 from ..interfaces.models import ILLModel, Message
@@ -64,7 +64,7 @@ class GroqAdapter(ILLModel):
                 messages=formatted,
                 **kwargs,
             )
-        except Exception as err:
+        except Exception as err:  # pylint: disable=broad-except
             if "reasoning_effort" in str(err):
                 kwargs.pop("reasoning_effort", None)
                 response = await self.client.chat.completions.create(

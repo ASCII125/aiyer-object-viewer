@@ -7,6 +7,8 @@ import json
 import re
 from typing import Type
 
+from ..providers import get_pil_image
+
 
 def clean_json_response(content: str) -> str:
     """Strip markdown code fences if present"""
@@ -59,26 +61,33 @@ def _schema_to_example(schema: dict, defs: dict):
         items = schema.get("items", {"type": "string"})
         return [_schema_to_example(items, defs)]
 
-    if description:
-        return f"<{description}>"
+    # Typed primitives must return a value of the correct JSON type so the
+    # example unambiguously signals the expected type to the LLM. A
+    # description hint here would be rendered as a string and mislead the
+    # model into producing strings for numeric/boolean fields.
+    if schema_type == "integer":
+        return f"0 <description: {description}>"
 
-    if schema_type in ("number", "integer"):
-        return 0
+    if schema_type == "number":
+        return f"0.0 <description: {description}>"
 
     if schema_type == "boolean":
-        return False
+        return "False <description: {description}>"
 
     if schema_type == "null":
-        return None
+        return f"None <description: {description}>"
+
+    if description:
+        return f"<{description}>"
 
     return "..."
 
 
 def resize_image(image_bytes: bytes, max_size: int = 384, quality: int = 75) -> bytes:
     """Resize image keeping aspect ratio and compress as JPEG"""
-    from PIL import Image  # pylint: disable=import-outside-toplevel
 
-    img = Image.open(io.BytesIO(image_bytes))
+    pil_img = get_pil_image()
+    img = pil_img.open(io.BytesIO(image_bytes))
 
     if max(img.size) > max_size:
         img.thumbnail((max_size, max_size))

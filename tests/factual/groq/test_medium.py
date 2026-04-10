@@ -12,7 +12,7 @@ import time
 from aiyer.adapters.groq import GroqAdapter
 from aiyer.modules.aiyer_medium import AiyerMedium
 from tests.setup import setup
-from tests.factual.ollama._common import ImageAnalysis, load_image, print_result
+from tests.factual._common import ImageAnalysis, load_image, print_result
 
 
 async def main():

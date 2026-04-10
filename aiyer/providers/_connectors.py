@@ -21,5 +21,15 @@ def get_groq():
     try:
         from groq import AsyncGroq  # pylint: disable=import-outside-toplevel
     except ImportError as err:
-        raise ImportError("Groq is not installed [uv add groq]") from err
+        raise ImportError("Groq is not installed [pip install groq]") from err
     return AsyncGroq
+
+def get_pil_image():
+    """
+    Get PIL image
+    """
+    try:
+        from PIL import Image  # pylint: disable=import-outside-toplevel
+    except ImportError as err:
+        raise ImportError("PIL is not installed [pip install Pillow]") from err
+    return Image

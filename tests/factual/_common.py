@@ -3,31 +3,32 @@ Shared schema and output helpers for ollama factual tests
 """
 
 import sys
-import time
 from pathlib import Path
 from typing import List, Optional
 
 from pydantic import BaseModel, Field
 
-from tests.setup import setup
-
 
 class DetectedItem(BaseModel):
+    """Item schema"""
     name: str = Field(description="Object name")
     description: str = Field(description="Brief description of the object")
+    quantity_occurrences: int = Field(description="Number of occurrences")
     confidence: float = Field(description="Confidence level 0-1")
 
 
 class ImageAnalysis(BaseModel):
+    """Image analysis schema"""
     summary: str = Field(description="General description of the scene")
     objects: List[DetectedItem] = Field(default_factory=list, description="Detected objects")
+    total_object_occurrences: int = Field(description="Sum objects.quantity_occurrences")
     environment: Optional[str] = Field(default=None, description="Environment type")
 
 
 def load_image() -> bytes:
     """Load image from CLI args"""
     if len(sys.argv) < 2:
-        print(f"Usage: python -m {sys.modules['__main__'].__package__} <image_path>")
+        print(f"Usage: python -m {sys.modules['__main__'].__package__} <image_path>")  # pylint: disable=no-member
         sys.exit(1)
 
     image_path = Path(sys.argv[1])

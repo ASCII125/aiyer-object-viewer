@@ -12,7 +12,7 @@ import time
 from aiyer.adapters.ollama import OllamaAdapter
 from aiyer.modules.aiyer_zero import AiyerZero
 from tests.setup import setup
-from ._common import ImageAnalysis, load_image, print_result
+from .._common import ImageAnalysis, load_image, print_result
 
 
 async def main():

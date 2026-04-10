@@ -21,7 +21,6 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Image Recognition",
 ]
 dependencies = [
-    "asyncer>=0.0.17",
     "pydantic>=2.12.5",
 ]
 

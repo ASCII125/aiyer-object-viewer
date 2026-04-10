@@ -12,7 +12,7 @@ from pydantic import BaseModel, Field
 from .models import ILLModel, Message
 
 
-T = TypeVar("T")
+T = TypeVar("T", bound=BaseModel)
 
 
 class VisionResponse(BaseModel, Generic[T]):

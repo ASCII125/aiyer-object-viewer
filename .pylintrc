@@ -63,7 +63,7 @@ ignore-patterns=^\.#
 # (useful for modules/projects where namespaces are manipulated during runtime
 # and thus existing member attributes cannot be deduced by static analysis). It
 # supports qualified module names, as well as Unix pattern matching.
-ignored-modules=ollama,asyncer
+ignored-modules=ollama
 
 # Python code to execute, usually for sys.path manipulation such as
 # pygtk.require().
@@ -337,7 +337,7 @@ indent-after-paren=4
 indent-string='    '
 
 # Maximum number of characters on a single line.
-max-line-length=100
+max-line-length=190
 
 # Maximum number of lines in a module.
 max-module-lines=1000
